@@ -4,7 +4,7 @@
     "description": "As an Assistant Professor, I guided the development of an AI-powered NL2SQL system for OSQuery. This system allows students and users to write natural language queries which are automatically converted into executable SQL statements. The approach involves a two-step process: first, intelligently retrieving relevant tables and columns from the database schema, and second, generating SQL queries using a fine-tuned CodeT5 model. The project emphasizes practical applications of Natural Language Processing, machine learning, and database management, bridging academic research with real-world cybersecurity and database analysis tasks.",
     "technologies": ["Python", "Transformers", "OSQuery", "NL2SQL", "Machine Learning", "Natural Language Processing"],
     "role": "Project Guide",
-    "link": "https://github.com/yourusername/nl2sql-osquery"
+    "link": "https://github.com/Pro-Nik/Vajra_NL2SQL_model"
   },
   {
     "title": "Data Warehousing with Bronze, Silver, Gold Layers",
