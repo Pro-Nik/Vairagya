@@ -4,6 +4,24 @@
   <title>Student Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
+<!-- COURSE ACCESS MODAL -->
+<div id="courseModal" class="modal">
+  <div class="modal-content">
+    <h3>🔐 Course Access</h3>
+    <p>Please enter the course access code provided by faculty.</p>
+
+    <input type="password" id="courseCodeInput" placeholder="Enter course code">
+    
+    <div class="modal-actions">
+      <button class="btn" onclick="verifyCourseCode()">Enter Course</button>
+      <button class="btn-outline" onclick="closeCourseModal()">Cancel</button>
+    </div>
+
+    <p id="courseError" class="error-text"></p>
+  </div>
+</div>
+
 <body onload="loadUser()">
 
 <div class="dashboard">
@@ -33,28 +51,37 @@
         <h3>Machine Learning</h3>
         <p><strong>Code:</strong> ML</p>
         <p><strong>Semester:</strong> NA</p>
-        <a href="course.html?course=ML" class="btn">View Course</a>
+        <!-- <a href="course.html?course=ML" class="btn">View Course</a> -->
+        <button class="btn" onclick="openCourseModal('ML')">View Course</button>
+
+   
       </div>
 
       <div class="course-card" data-name="Artificial Intelligence" data-code="AI" data-sem="NA">
         <h3>Artificial Intelligence</h3>
         <p><strong>Code:</strong> AI</p>
         <p><strong>Semester:</strong> NA</p>
-        <a href="course.html?course=AI" class="btn">View Course</a>
+        <!-- <a href="course.html?course=AI" class="btn">View Course</a> -->
+        <button class="btn" onclick="openCourseModal('AI')">View Course</button>
+
       </div>
 
       <div class="course-card" data-name="Database Management Systems" data-code="DBMS" data-sem="NA">
-        <h3>Database Management Systems</h3>
+        <h3>DBMS</h3>
         <p><strong>Code:</strong> DBMS</p>
         <p><strong>Semester:</strong> NA</p>
-        <a href="course.html?course=DBMS" class="btn">View Course</a>
+        <!-- <a href="course.html?course=DBMS" class="btn">View Course</a> -->
+        <button class="btn" onclick="openCourseModal('DBMS')">View Course</button>
+
       </div>
 
       <div class="course-card" data-name="Deep Learning" data-code="DL" data-sem="NA">
         <h3>Deep Learning</h3>
         <p><strong>Code:</strong> DL</p>
         <p><strong>Semester:</strong> NA</p>
-        <a href="course.html?course=DL" class="btn">View Course</a>
+        <!-- <a href="course.html?course=DL" class="btn">View Course</a> -->
+        <button class="btn" onclick="openCourseModal('DL')">View Course</button>
+
       </div>
 
     </div>
@@ -84,6 +111,48 @@ function filterCourses() {
   });
 }
 </script>
+
+
+<script>
+let selectedCourse = "";
+
+/* =========================
+   ENCODED COURSE CODES
+   (basic obfuscation)
+========================= */
+const COURSE_CODES = {
+  ML:   "TUwyMDI1",      // btoa("ML2025")
+  AI:   "QUkyMDI1",      // btoa("AI2025")
+  DBMS: "REJNUzIwMjU=",  // btoa("DBMS2025")
+  DL:   "REwyMDI1"       // btoa("DL2025")
+};
+
+function openCourseModal(course) {
+  selectedCourse = course;
+  document.getElementById("courseModal").style.display = "block";
+  document.getElementById("courseCodeInput").value = "";
+  document.getElementById("courseError").innerText = "";
+}
+
+function closeCourseModal() {
+  document.getElementById("courseModal").style.display = "none";
+}
+
+function verifyCourseCode() {
+  const inputCode = document.getElementById("courseCodeInput").value.trim();
+
+  if (btoa(inputCode) === COURSE_CODES[selectedCourse]) {
+    // store temporary session token
+    sessionStorage.setItem("course_access", selectedCourse);
+    window.location.href = `course.html?course=${selectedCourse}`;
+  } else {
+    document.getElementById("courseError").innerText =
+      "❌ Invalid course access code";
+  }
+}
+</script>
+
+
 
 </body>
 </html>
